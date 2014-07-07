@@ -9,9 +9,9 @@ This grunt task enables you to trigger tasks whenever files are added, changed, 
 ## Never-ending file watchers
 If you watch a lot of files/directories, triggering tasks can be a bit pain when using most other watchers. Re-watching thousands of nodes takes a while, even on an SSD.
 
-This also causes responsiveness of the watch task to go down noticeably (if files are changed during triggered tasks, you won't retroactively get these file changes after they're done and have to "touch" the files once more to trigger another round.)
+This also causes responsiveness of the watch task to go down noticeably (if files are changed during triggered tasks, you won't retroactively get these file changes after the tasks are done, and have to "touch" the files once more to trigger the watch again.)
 
-This is what `grunt-surveil` has been designed to mitigate.
+This is part of what `grunt-surveil` has been designed to mitigate.
 
 ## Usage
 
@@ -26,7 +26,7 @@ Like `grunt-contrib-watch`, `grunt-surveil` is a single-target grunt task that u
 The number of milliseconds to delay executing tasks when files change. This can be good to adjust if you want to do more "bulk runs."
 
 ##### `emitOnAllTargets: false`
-Whether to trigger all targets when files change. The default behavior of [gaze](https://github.com/shama/gaze) is to emit file changes to _all_ watch instances. By default in `grunt-surveil`, this behavior is disabled to enable more granular execution of tasks but might not play ball with every task out there.
+Whether to trigger all targets when files change. The default behavior of [gaze](https://github.com/shama/gaze) is to emit file changes to _all_ watch instances. By default in `grunt-surveil`, this behavior is disabled to provide more granular execution of tasks but might not play ball with every task out there.
 
 ##### `rewriteThreshold: 100`
 The number of milliseconds that files are ignored _after_ tasks has been run. It is only used when a task has the `rewritesWatchedFiles` flag enabled.
@@ -35,11 +35,11 @@ The number of milliseconds that files are ignored _after_ tasks has been run. It
 ###### `src: "<%= foo.bar %>/**/baz/*.js"`
 The source files to watch on. Can be any pattern that is supported by grunt.
 
-##### `prepare: function(changedFiles, task)`
-This callback gets invoked _once_ for every task in the task list. If you decide that the current task doesn't need to be executed, returning `false` from this callback will make `grunt-surveil` to ignore that task.
-
 ##### `tasks: ["foo", "bar:baz"]`
 The list of grunt tasks to execute when `src` files change. The tasks will be executed in order.
+
+##### `prepare: function(changedFiles, task)`
+This callback gets invoked _once_ for every task in the task array. If you decide that the current task doesn't need to be executed, returning `false` from this callback will make `grunt-surveil` to ignore that task.
 
 ##### `rewritesWatchedFiles: false`
 This flag can be used on targets that you know will overwrite watched files. Due to re-using file watchers under task executions, these watches will trigger changes on files that the executed tasks changes. This prohibits `grunt-surveil` from triggering during that time.
@@ -68,6 +68,9 @@ Here's another example, using the `rewritesWatchedFiles` flag. This flag is used
 ```
 grunt.initConfig( {
 	surveil: {
+		options: {
+			rewriteThreshold: 250
+		},
 		javascript: {
 			rewritesWatchedFiles: true,
 			src: ["gruntfile.js", "lib/**/*.js"],
