@@ -1,0 +1,29 @@
+{
+  "indent": {
+    "value": "\t"
+  },
+  "whiteSpace": {
+    "before": {
+      "ArgumentList": 1,
+      "ArgumentListArrayExpression": 1,
+      "ArgumentListFunctionExpression": 1,
+      "ArgumentListObjectExpression": 1,
+      "CallExpression": 0,
+      "ForStatementExpression": 1,
+      "IfStatementConditionalClosing": 1,
+      "ParameterList": 1,
+      "WhileStatementConditional": 1
+    },
+    "after": {
+      "ArgumentList": 1,
+      "ArgumentListArrayExpression": 1,
+      "ArgumentListFunctionExpression": 1,
+      "ArgumentListObjectExpression": 1,
+      "ForStatementExpression": 1,
+      "FunctionExpressionClosingBrace": 1,
+      "IfStatementConditionalOpening": 1,
+      "ParameterList": 1,
+      "WhileStatementConditional": 1
+    }
+  }
+}
