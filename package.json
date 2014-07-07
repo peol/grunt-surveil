@@ -2,17 +2,28 @@
   "name": "grunt-surveil",
   "version": "0.1.0",
   "description": "Watch files for changes, with granular control on the files and tasks it executes",
-  "main": "tasks/surveil.js",
   "keywords": [
     "grunt",
     "watch",
     "filewatcher"
   ],
+  "files": [
+    "tasks",
+    "package.json",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peol/grunt-surveil"
+  },
+  "bugs": "https://github.com/peol/grunt-surveil/issues",
   "author": "Andrée Hansson",
   "license": "MIT",
-  "devDependencies": {
-    "gaze": "^0.6.4",
+  "dependencies": {
     "grunt": "~0.4.5",
+    "gaze": "^0.6.4"
+  },
+  "devDependencies": {
     "grunt-esformatter": "~0.2.3"
   }
 }
