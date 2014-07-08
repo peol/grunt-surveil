@@ -1,10 +1,10 @@
-var SIGINT_HOOKED = false;
+var sigintHooked = false;
 
 module.exports = function sigintHook( fn ) {
-	if ( SIGINT_HOOKED ) {
+	if ( sigintHooked ) {
 		return;
 	}
-	SIGINT_HOOKED = true;
+	sigintHooked = true;
 	// ctrl+c should stop this task and quit grunt gracefully
 	// (process.on("SIGINT", fn) doesn't behave correctly on Windows):
 	var rl = require( "readline" ).createInterface( {
