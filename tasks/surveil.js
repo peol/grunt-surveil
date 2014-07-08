@@ -2,6 +2,7 @@ module.exports = function( grunt ) {
 	var initialized = false;
 	var delayedExecution = null;
 	var pendingTargets = Object.create( null );
+	var defaultForceFlag = grunt.option( "force" );
 	var doneFn,
 		options,
 		init;
@@ -54,7 +55,6 @@ module.exports = function( grunt ) {
 		grunt.task.run( buildTaskList() );
 
 		pendingTargets = Object.create( null );
-		grunt.option( "force", false );
 		grunt.task.run( "surveil" );
 	}
 
@@ -122,6 +122,7 @@ module.exports = function( grunt ) {
 	}
 
 	grunt.registerTask( "surveil", require( "../package.json" ).description, function() {
+		grunt.option( "force", defaultForceFlag );
 		init = new Date();
 		doneFn = this.async();
 
