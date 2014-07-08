@@ -16,7 +16,11 @@ This is part of what `grunt-surveil` has been designed to mitigate.
 ## Usage
 
 ### Install
-`grunt-surveil` is not yet on npm. You have to manually install the task to run it. More info to come.
+```
+npm install --save-dev grunt-surveil
+```
+
+Then edit your `Gruntfile.js` with the configuration (see below) and load the task with `grunt.loadNpmTasks("grunt-surveil")`;
 
 ### Configuration
 Like `grunt-contrib-watch`, `grunt-surveil` is a single-target grunt task that uses multi-task configuration.
