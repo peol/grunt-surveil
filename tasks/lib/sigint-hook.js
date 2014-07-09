@@ -1,3 +1,5 @@
+"use strict";
+
 var sigintHooked = false;
 
 module.exports = function sigintHook( fn ) {

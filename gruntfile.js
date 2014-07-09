@@ -1,21 +1,35 @@
+"use strict";
+
 module.exports = function( grunt ) {
 	grunt.initConfig( {
+		jsFiles: ["gruntfile.js", "tasks/**/*.js"],
+		eslint: {
+			options: {
+				config: "eslint.json"
+			},
+			src: "<%= jsFiles %>"
+		},
 		esformatter: {
 			options: require( "./esformatter.json" ),
-			src: ["gruntfile.js", "tasks/**/*.js"]
+			src: "<%= jsFiles %>"
 		},
 		surveil: {
-			js: {
-				src: "<%= esformatter.src %>",
+			jsFormatting: {
 				rewritesWatchedFiles: true,
-				tasks: ["esformatter:partial"],
+				src: "<%= jsFiles %>",
+				tasks: ["eslint:partial", "esformatter:partial"],
 				prepare: function( files, task ) {
-					grunt.config( "esformatter.partial", files );
+					if ( task === "eslint:partial" ) {
+						grunt.config( "eslint.partial", files );
+					} else if ( task === "esformatter:partial" ) {
+						grunt.config( "esformatter.partial", files );
+					}
 				}
 			}
 		}
 	} );
 
 	grunt.loadNpmTasks( "grunt-esformatter" );
+	grunt.loadNpmTasks( "grunt-eslint" );
 	grunt.loadTasks( "tasks" );
 };

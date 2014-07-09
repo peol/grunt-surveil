@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function( grunt ) {
 	var initialized = false;
 	var delayedExecution = null;
@@ -6,6 +8,19 @@ module.exports = function( grunt ) {
 	var doneFn,
 		options,
 		init;
+
+	/**
+	* Helper to retrieve grunt configuration for surveil targets.
+	* @internal
+	*
+	* @param {String} [target] The target name to get the configuration for
+	* @returns {Object} A configuration for a surveil target. If `target` was
+	*                   omitted, it'll return the surveil configuration.
+	*/
+	function getConfig( target ) {
+		var key = "surveil" + (target ? "." + target : "");
+		return grunt.config.get( key );
+	}
 
 	/**
 	* Queue a file to a specific target. Creates the queue if it doesn't exist.
@@ -84,19 +99,6 @@ module.exports = function( grunt ) {
 	}
 
 	/**
-	* Helper to retrieve grunt configuration for surveil targets.
-	* @internal
-	*
-	* @param {String} [target] The target name to get the configuration for
-	* @returns {Object} A configuration for a surveil target. If `target` was
-	*                   omitted, it'll return the surveil configuration.
-	*/
-	function getConfig( target ) {
-		var key = "surveil" + (target ? "." + target : "");
-		return grunt.config.get( key );
-	}
-
-	/**
 	* Gets a list of surveil targets the surveil task should utilize.
 	* @internal
 	*
@@ -154,7 +156,11 @@ module.exports = function( grunt ) {
 			var cfg = getConfig( target );
 			var gazer = new Gaze( cfg.src );
 
-			gazer.on( "ready", function( err, watcher ) {
+			gazer.on( "ready", function( err ) {
+				if ( err ) {
+					throw err;
+				}
+
 				grunt.verbose.writeln( "Watcher created for target '%s'...", target );
 
 				if ( !options.emitOnAllTargets ) {
