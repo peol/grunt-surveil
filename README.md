@@ -49,7 +49,7 @@ This callback gets invoked _once_ for every task in the task array. If you decid
 This flag can be used on targets that you know will overwrite watched files. Due to re-using file watchers under task executions, these watches will trigger changes on files that the executed tasks changes. This prohibits `grunt-surveil` from triggering during that time.
 
 #### Examples
-A typical configuration to might look something like this:
+A typical configuration might look something like this:
 
 ```
 grunt.initConfig( {
@@ -67,7 +67,7 @@ grunt.initConfig( {
 
 The above configuration will only run the `eslint:partial` task with the changed files, instead of running on potentially thousands of watched files.
 
-Here's another example, using the `rewritesWatchedFiles` flag. This flag is used to discard file changes while a task is being run, to work around triggering the task double or indefinitely:
+Here's another example, using the `rewritesWatchedFiles` flag. This flag is used to discard file changes while a file-writing task is being run, to work around triggering the task double or indefinitely:
 
 ```
 grunt.initConfig( {
