@@ -14,5 +14,6 @@ module.exports = function sigintHook( fn ) {
 	rl.on( "SIGINT", function() {
 		fn();
 		rl.close();
+		sigintHooked = false;
 	} );
 };
