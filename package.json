@@ -1,6 +1,6 @@
 {
   "name": "grunt-surveil",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Watch files for changes, with granular control on the files and tasks it executes",
   "keywords": [
     "grunt",
@@ -20,8 +20,9 @@
   "author": "Andrée Hansson",
   "license": "MIT",
   "dependencies": {
+    "gaze": "^0.6.4",
     "grunt": "~0.4.5",
-    "gaze": "^0.6.4"
+    "sigint-hook": "^0.1.0"
   },
   "devDependencies": {
     "grunt-esformatter": "~0.2.3",

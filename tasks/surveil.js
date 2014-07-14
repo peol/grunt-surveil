@@ -137,7 +137,10 @@ module.exports = function( grunt ) {
 
 		// sigint-hook helps with ctrl/cmd+c, by default, this keyboard combo works
 		// on OSX/Linux, but not on Windows...:
-		require( "./lib/sigint-hook" )( function() {
+		var sigint = require( "sigint-hook" )( {
+			eventOnHookOnly: true
+		} );
+		sigint.on( "SIGINT", function() {
 			grunt.task.clearQueue();
 			doneFn();
 		} );
@@ -156,11 +159,7 @@ module.exports = function( grunt ) {
 			var cfg = getConfig( target );
 			var gazer = new Gaze( cfg.src );
 
-			gazer.on( "ready", function( err ) {
-				if ( err ) {
-					throw err;
-				}
-
+			gazer.on( "ready", function() {
 				grunt.verbose.writeln( "Watcher created for target '%s'...", target );
 
 				if ( !options.emitOnAllTargets ) {
